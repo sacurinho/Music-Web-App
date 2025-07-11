@@ -16,14 +16,11 @@
 
     #home {
       background-image: url('https://i.pinimg.com/originals/3e/fe/1c/3efe1cb845954233246f60d5d8395dd0.gif');
-      /* Replace with your GIF URL */
       background-size: cover;
       background-position: center;
       background-repeat: no-repeat;
       position: relative;
-      /* Needed for overlay */
       overflow: hidden;
-      /* Ensure content doesn't overflow */
     }
 
     #home::before {
@@ -34,45 +31,119 @@
       right: 0;
       bottom: 0;
       background: rgba(0, 0, 0, 0.5);
-      /* Adjust opacity as needed (0.0 to 1.0) */
       z-index: 0;
     }
 
-    /* Ensure content is above the overlay */
     #home>div {
       position: relative;
       z-index: 1;
     }
-  </style>
 
+    /* Burger menu icon styles */
+    .hamburger-menu {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 10px;
+    }
+
+    .hamburger-menu span {
+      background: white;
+      border-radius: 5px;
+      height: 3px;
+      margin: 4px 0;
+      width: 25px;
+      transition: all 0.3s ease-in-out;
+    }
+
+    /* Mobile navigation menu styles */
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      width: 100%;
+      background-color: #1a202c;
+      /* Darker background for the mobile menu */
+      position: absolute;
+      top: 100%;
+      /* Position right below the header */
+      left: 0;
+      z-index: 40;
+      /* Lower than header, higher than other content */
+      padding: 1rem 0;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .mobile-nav a {
+      padding: 0.75rem 1rem;
+      color: white;
+      text-align: center;
+      border-bottom: 1px solid #2d3748;
+      /* Subtle separator */
+    }
+
+    .mobile-nav a:last-child {
+      border-bottom: none;
+    }
+
+    .mobile-nav a:hover {
+      background-color: #2d3748;
+      color: #4299e1;
+      /* Highlight on hover */
+    }
+
+    /* Show hamburger menu on small screens */
+    @media (max-width: 767px) {
+      .hamburger-menu {
+        display: flex;
+      }
+
+      .mobile-nav.open {
+        display: flex;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-blue-500 to-green-500 text-white p-4 ">
-    <nav class="container mx-auto flex justify-between items-left">
-      <h2> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-boombox-fill"
+  <header class="bg-gradient-to-r from-blue-500 to-green-500 text-white p-4 relative z-50">
+    <nav class="container mx-auto flex justify-between items-center">
+      <h2 class="text-2xl font-bold flex items-center gap-2">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-boombox-fill"
           viewBox="0 0 16 16">
           <path
             d="M14 0a.5.5 0 0 1 .5.5V2h.5a1 1 0 0 1 1 1v2H0V3a1 1 0 0 1 1-1h12.5V.5A.5.5 0 0 1 14 0M2 3.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m2 0a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0m7.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m1.5-.5a.5.5 0 1 0 1 0 .5.5 0 0 0-1 0M9.5 3h-3a.5.5 0 0 0 0 1h3a.5.5 0 0 0 0-1M6 10.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m-1.5.5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1m7 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3m.5-1.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0" />
           <path
             d="M0 6h16v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm2 4.5a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0m7 0a2.5 2.5 0 1 0 5 0 2.5 2.5 0 0 0-5 0" />
-        </svg>Melody Haven</h2>
-      <div class="flex space-x-4">
+        </svg>Melody Haven
+      </h2>
+
+      <div class="hidden md:flex space-x-4">
         <a href="#home" class="hover:text-black">Home</a>
         <a href="#featured" class="hover:text-black">Featured</a>
         <a href="#genres" class="hover:text-black">Genres</a>
         <a href="#about" class="hover:text-black">About Us</a>
         <a href="#contact" class="hover:text-black">Contact</a>
       </div>
-      <!-- Mobile Menu Button - Functionality removed as it relies on CSS -->
 
+      <div class="hamburger-menu md:hidden" id="hamburger-icon">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </nav>
+
+    <div class="mobile-nav" id="mobile-menu">
+      <a href="#home" class="hover:bg-gray-700">Home</a>
+      <a href="#featured" class="hover:bg-gray-700">Featured</a>
+      <a href="#genres" class="hover:bg-gray-700">Genres</a>
+      <a href="#about" class="hover:bg-gray-700">About Us</a>
+      <a href="#contact" class="hover:bg-gray-700">Contact</a>
+    </div>
   </header>
 
   <main>
-    <!-- Hero Section -->
     <section id="home"
-      class="mx-auto text-center py-20 p-8 bg-gradient-to-r from-blue-500 to-blue-5 text-white  flex flex-col justify-center items-center min-h-screen">
+      class="mx-auto text-center py-20 p-8 bg-gradient-to-r from-blue-500 to-blue-5 text-white flex flex-col justify-center items-center min-h-screen">
       <div>
         <h1 class="text-5xl font-extrabold mb-6 leading-tight">Discover Your Next Favorite Melody</h1>
         <p>Explore a vast collection of music from every genre and era. Start your journey today!</p>
@@ -82,60 +153,59 @@
       </div>
     </section>
 
-    <!-- Featured Music Section -->
     <section id="featured" class="grid grid-cols-1 padd">
-      <h2 class="text-center bold">Featured Releases</h2>
+      <h2 class="text-5xl font-extrabold text-center mb-6 leading-tight">Featured Releases</h2>
       <div class="featured-container max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <!-- Featured Item 1 -->
         <div
           class="featured-item bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out p-6 flex flex-col items-center text-center">
           <img src="https://placehold.co/600x400/8e2de2/ffffff?text=Album+Art+1" alt="Album Art">
           <div>
             <h3>The Rhythmic Journey</h3>
             <p>Artist Name One</p>
-            <p>An immersive soundscape that takes you through various moods and emotions. A must-listen for true music
+            <p class="mb-4">An immersive soundscape that takes you through various moods and emotions. A
+              must-listen for
+              true music
               lovers.</p>
             <button class="bg-blue-400 text-black px-1.5 py-0.5 hover:bg-blue-600">Listen Now</button>
           </div>
         </div>
-        <!-- Featured Item 2 -->
         <div
           class="featured-item bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out p-6 flex flex-col items-center text-center">
           <img src="https://placehold.co/600x400/4a00e0/ffffff?text=Album+Art+2" alt="Album Art">
           <div>
             <h3>Echoes of Tomorrow</h3>
             <p>Artist Name Two</p>
-            <p>A futuristic blend of electronic beats and soulful vocals, pushing the boundaries of contemporary music.
+            <p class="mb-4">A futuristic blend of electronic beats and soulful vocals, pushing the boundaries
+              of
+              contemporary music.
             </p>
             <button class="bg-blue-400 text-black px-1.5 py-0.5 hover:bg-blue-600">Listen Now</button>
           </div>
         </div>
-        <!-- Featured Item 3 -->
         <div
           class="featured-item bg-gray-800 rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 ease-in-out p-6 flex flex-col items-center text-center">
           <img src="https://placehold.co/600x400/8e2de2/ffffff?text=Album+Art+3" alt="Album Art">
           <div>
             <h3>Acoustic Dreams</h3>
             <p>Artist Name Three</p>
-            <p>Pure, unadulterated acoustic melodies that will transport you to a serene and peaceful state of mind.</p>
+            <p class="mb-4">Pure, unadulterated acoustic melodies that will transport you to a serene and
+              peaceful state
+              of mind.</p>
             <button class="bg-blue-400 text-black px-1.5 py-0.5 hover:bg-blue-600">Listen Now</button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Genres Section -->
     <section id="genres">
-      <h2>Explore Genres</h2>
+      <h2 class="text-5xl font-extrabold text-center mb-6 leading-tight">Explore Genres</h2>
       <div class="genres-container grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-6 text-center">
-        <!-- Genre Card 1 -->
         <div class="text-center">
           <img src="https://cdn-1.webcatalog.io/catalog/rap-fame/rap-fame-icon-filled-256.webp?v=1749429279669"
             alt="Hip-Hop Icon" class="mx-auto">
           <h3>Hip Hop</h3>
           <p>Rap, R&B, Trap</p>
         </div>
-        <!-- Genre Card 2 -->
         <div>
           <img
             src="https://is3-ssl.mzstatic.com/image/thumb/Purple3/v4/fd/f8/7c/fdf87c44-c4ba-b3c1-2cc5-73abbc99043b/source/256x256bb.jpg"
@@ -143,7 +213,6 @@
           <h3>Pop</h3>
           <p>Top Hits, Dance-Pop</p>
         </div>
-        <!-- Genre Card 3 -->
         <div>
           <img
             src="https://covers.stocktune.com/public/8/3/e/83e9039a-a2a6-46de-9c40-770e6c27fc42_medium/jazz-stocktune.jpg"
@@ -151,7 +220,6 @@
           <h3>Jazz</h3>
           <p>Smooth, Fusion, Blues</p>
         </div>
-        <!-- Genre Card 4 -->
         <div>
           <img
             src="https://zeno.fm/_ipx/_/https://images.zeno.fm/ZQ9_k8zoiERC8rPFw6KZIvh_KTOPueCShvuLZs9pfyU/rs:fill:256:256/g:ce:0:0/aHR0cHM6Ly9wcm94eS56ZW5vLmZtL2NvbnRlbnQvc3RhdGlvbnMvYWd4emZucGxibTh0YzNSaGRITnlNZ3NTQ2tGMWRHaERiR2xsYm5RWWdJRFFyYVRqelFzTUN4SU9VM1JoZEdsdmJsQnliMlpwYkdVWWdJRElxS1diNUFzTW9nRUVlbVZ1YncvaW1hZ2UvP3U9MTc0MjI1MTQ4MjAwMA.webp"
@@ -159,14 +227,12 @@
           <h3>Amapiano</h3>
           <p>Classic,3-step</p>
         </div>
-        <!-- Genre Card 5 -->
         <div>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQov8iXZYHpDofS1RjR_Eo4f7mF-soQCuIzUg&s"
             alt="Electronic Icon" class="mx-auto">
           <h3>Electronic</h3>
           <p>EDM, House, Techno</p>
         </div>
-        <!-- Genre Card 6 -->
         <div>
           <img src="https://c-cdnet.cdn.smule.com/rs-s24/arr/7b/21/118efb3a-74b2-4e0c-9796-20dd5a7001b3.jpg"
             alt="Country Icon" class="mx-auto">
@@ -176,9 +242,7 @@
       </div>
     </section>
 
-    <!-- About Us Section -->
-    <section id="about" class="bg-gray-800 text-white p-8 rounded-lg shadow-lg text-center"
-      style=" margin: auto;">
+    <section id="about" class="bg-gray-800 text-white p-8 rounded-lg shadow-lg text-center" style=" margin: auto;">
       <h2 class="text-blue-400 underline px-1.5">About Melody Haven</h2>
       <div>
         <p>
@@ -193,61 +257,76 @@
       </div>
     </section>
 
-    <!-- Call to Action Section -->
- <hr class="border-gray-800 my-8">
+    <hr class="border-gray-800 my-8">
 
-<section class="py-12 px-4 text-center bg-gray-900 border border-gray-700 rounded-lg  mx-auto">
-    <h2 class="text-4xl font-extrabold text-white mb-6 relative pb-2">
+    <section class="py-12 px-4 text-center bg-gray-900 border border-gray-700 rounded-lg mx-auto">
+      <h2 class="text-4xl font-extrabold text-white mb-6 relative pb-2">
         Ready to Dive Deeper?
         <span class="absolute bottom-0 left-1/2 -translate-x-1/2 w-24 h-1 bg-gray-600 rounded-full"></span>
-    </h2>
-    <p class="text-lg text-gray-300 mb-8">Sign up for our newsletter to get the latest updates, exclusive releases, and personalized recommendations.</p>
-    <form class="flex flex-col sm:flex-row justify-center items-center gap-4">
-        <input type="email" placeholder="Enter your email" class="px-6 py-3 rounded-full border-2 border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-gray-500 w-full max-w-sm" />
-        <button type="submit" class="bg-gray-700 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105">
-            Subscribe
+      </h2>
+      <p class="text-lg text-gray-300 mb-8">Sign up for our newsletter to get the latest updates, exclusive releases,
+        and personalized recommendations.</p>
+      <form class="flex flex-col sm:flex-row justify-center items-center gap-4">
+        <input type="email" placeholder="Enter your email"
+          class="px-6 py-3 rounded-full border-2 border-gray-600 bg-gray-800 text-white placeholder-gray-400 focus:outline-none focus:border-gray-500 w-full max-w-sm" />
+        <button type="submit"
+          class="bg-gray-700 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-gray-600 transition duration-300 transform hover:scale-105">
+          Subscribe
         </button>
-    </form>
-</section>
+      </form>
+    </section>
 
-  <!-- Footer -->
-  <footer id="contact" class="bg-gray-950 text-gray-400 py-8 px-4">
-    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
-      <!-- Branding Section -->
-      <div class="mb-6 md:mb-0">
-        <h3 class="text-2xl font-bold text-white mb-2">Melody Haven</h3>
-        <p class="text-sm">&copy; 2025 All rights reserved.</p>
-      </div>
-      <!-- Legal Links Section -->
-      <div class="flex flex-col sm:flex-row gap-4 mb-6 md:mb-0">
-        <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
-        <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
-      </div>
-      <!-- Social Media Icons Section -->
-      <div class="flex space-x-6">
-        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M22.23 6.04c-.78.35-1.63.58-2.52.68.9-.54 1.59-1.4 1.92-2.42-.84.5-1.78.87-2.78 1.07-1.77-1.88-4.66-1.8-6.33.25-1.05 1.29-1.57 3.03-1.39 4.74-4.64-.23-8.77-2.46-11.53-5.88-.48.83-.75 1.79-.75 2.81 0 1.94.99 3.65 2.5 4.67-.81-.02-1.58-.25-2.25-.62v.07c0 2.72 1.94 5.01 4.51 5.53-.47.13-.97.2-1.48.2-.36 0-.71-.03-1.05-.1 1.94 6.07 7.55 8.04 14.12 6.62C20.32 18.24 22 15.12 22 11.75c0-.44-.01-.88-.04-1.31.84-.6 1.56-1.35 2.14-2.22z" />
-          </svg>
-        </a>
-        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+    <footer id="contact" class="bg-gray-950 text-gray-400 py-8 px-4">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+        <div class="mb-6 md:mb-0">
+          <h3 class="text-2xl font-bold text-white mb-2">Melody Haven</h3>
+          <p class="text-sm">&copy; 2025 All rights reserved.</p>
+        </div>
+        <div class="flex flex-col sm:flex-row gap-4 mb-6 md:mb-0">
+          <a href="#" class="hover:text-white transition duration-300">Privacy Policy</a>
+          <a href="#" class="hover:text-white transition duration-300">Terms of Service</a>
+        </div>
+        <div class="flex space-x-6">
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M22.23 6.04c-.78.35-1.63.58-2.52.68.9-.54 1.59-1.4 1.92-2.42-.84.5-1.78.87-2.78 1.07-1.77-1.88-4.66-1.8-6.33.25-1.05 1.29-1.57 3.03-1.39 4.74-4.64-.23-8.77-2.46-11.53-5.88-.48.83-.75 1.79-.75 2.81 0 1.94.99 3.65 2.5 4.67-.81-.02-1.58-.25-2.25-.62v.07c0 2.72 1.94 5.01 4.51 5.53-.47.13-.97.2-1.48.2-.36 0-.71-.03-1.05-.1 1.94 6.07 7.55 8.04 14.12 6.62C20.32 18.24 22 15.12 22 11.75c0-.44-.01-.88-.04-1.31.84-.6 1.56-1.35 2.14-2.22z" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
 
-          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill-rule="evenodd"
-              d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 0-.237-.008-.867-.013-1.702-2.782.607-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.463-1.11-1.463-.907-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.828.092-.643.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.088.389-1.979 1.029-2.673-.103-.253-.446-1.267.098-2.637 0 0 .84-.268 2.75 1.022A9.607 9.607 0 0112 6.865c.85.004 1.701.114 2.502.327 1.909-1.29 2.747-1.022 2.747-1.022.546 1.37.202 2.384.098 2.637.64.694 1.029 1.585 1.029 2.673 0 3.823-2.339 4.672-4.566 4.925.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.579.688.481C21.133 20.196 24 16.444 24 12.017 24 6.484 19.522 2 14 2h-2z"
-              clip-rule="evenodd" />
-          </svg>
-        </a>
-        <a href="#" class="text-gray-400 hover:text-white transition duration-300">
-          <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path
-              d="M20.447 20.452h-3.529v-5.588c0-1.328-.024-3.045-1.854-3.045-1.855 0-2.14 1.444-2.14 2.955v5.678h-3.529V9.289h3.385v1.551h.048c.472-.892 1.62-1.83 3.32-1.83C21.727 8.989 22 11.399 22 14.288v6.164zM4.116 7.55c-1.213 0-2.199-.974-2.199-2.179 0-1.206.986-2.18 2.199-2.18s2.2.974 2.2 2.18c0 1.205-.987 2.179-2.2 2.179zM5.845 20.452H2.316V9.289h3.529v11.163z" />
-          </svg>
-        </a>
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.499.09.682-.217.682-.483 0-.237-.008-.867-.013-1.702-2.782.607-3.369-1.341-3.369-1.341-.454-1.156-1.11-1.463-1.11-1.463-.907-.618.069-.606.069-.606 1.003.07 1.531 1.032 1.531 1.032.892 1.529 2.341 1.088 2.91.828.092-.643.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.93 0-1.088.389-1.979 1.029-2.673-.103-.253-.446-1.267.098-2.637 0 0 .84-.268 2.75 1.022A9.607 9.607 0 0112 6.865c.85.004 1.701.114 2.502.327 1.909-1.29 2.747-1.022 2.747-1.022.546 1.37.202 2.384.098 2.637.64.694 1.029 1.585 1.029 2.673 0 3.823-2.339 4.672-4.566 4.925.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.579.688.481C21.133 20.196 24 16.444 24 12.017 24 6.484 19.522 2 14 2h-2z"
+                clip-rule="evenodd" />
+            </svg>
+          </a>
+          <a href="#" class="text-gray-400 hover:text-white transition duration-300">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20.447 20.452h-3.529v-5.588c0-1.328-.024-3.045-1.854-3.045-1.855 0-2.14 1.444-2.14 2.955v5.678h-3.529V9.289h3.385v1.551h.048c.472-.892 1.62-1.83 3.32-1.83C21.727 8.989 22 11.399 22 14.288v6.164zM4.116 7.55c-1.213 0-2.199-.974-2.199-2.179 0-1.206.986-2.18 2.199-2.18s2.2.974 2.2 2.18c0 1.205-.987 2.179-2.2 2.179zM5.845 20.452H2.316V9.289h3.529v11.163z" />
+            </svg>
+          </a>
+        </div>
       </div>
-    </div>
-  </footer>
+    </footer>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburgerIcon.addEventListener('click', function () {
+      mobileMenu.classList.toggle('open');
+    });
+
+    // Close the mobile menu when a link is clicked
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+      });
+    });
+  });
+</script>
 
 </html>
